@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 
 import { loginOrSignUp } from '../pom/utils';
+import { ALICE } from './users';
 
 export * from '@playwright/test';
 
@@ -24,7 +25,10 @@ export const test = baseTest.extend<{}, { workerStorageState: string }>({
 
       const page = await browser.newPage({ storageState: undefined });
 
-      await loginOrSignUp(page);
+      await loginOrSignUp(page, {
+        name: ALICE.name + id,
+        email: `alice+${id}@example.com`,
+      });
 
       await page.context().storageState({ path: fileName });
       await page.close();

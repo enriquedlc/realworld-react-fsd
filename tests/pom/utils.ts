@@ -1,8 +1,12 @@
 import { Page } from '@playwright/test';
 import { SignUp } from '../SignUp';
 import { SignIn } from '../SignIn';
+import { ALICE } from '../fixtures/users';
 
-export async function loginOrSignUp(page: Page) {
+export async function loginOrSignUp(
+  page: Page,
+  { name = ALICE.name, email = ALICE.email } = {},
+) {
   const signUp = new SignUp(page);
   const signIn = new SignIn(page);
 
@@ -15,10 +19,13 @@ export async function loginOrSignUp(page: Page) {
   } catch (error) {
     await signIn.navigate();
     try {
-      await signIn.signIn();
+      await signIn.signIn({ email });
     } catch (error) {
       await signUp.navigate();
-      await signUp.signUp();
+      await signUp.signUp({
+        name,
+        email,
+      });
     }
   }
 }
