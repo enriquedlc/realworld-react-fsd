@@ -6,7 +6,7 @@ export async function loginOrSignUp(page: Page) {
   const signUp = new SignUp(page);
   const signIn = new SignIn(page);
 
-  await page.goto('/');
+  await page.goto('http://localhost:5173');
 
   try {
     await page

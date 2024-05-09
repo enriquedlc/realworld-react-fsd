@@ -5,7 +5,7 @@ export class SignUp {
   constructor(private readonly page: Page) {}
 
   async navigate() {
-    await this.page.goto('/register');
+    await this.page.goto('http://localhost:5173/register');
   }
 
   async signUp({

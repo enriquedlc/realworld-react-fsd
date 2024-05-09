@@ -5,7 +5,7 @@ export class SignIn {
   constructor(private readonly page: Page) {}
 
   async navigate() {
-    await this.page.goto('/login');
+    await this.page.goto('http://localhost:5173/login');
   }
 
   async signIn({ email = ALICE.email, password = ALICE.password } = {}) {
