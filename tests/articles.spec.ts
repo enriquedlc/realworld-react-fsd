@@ -9,12 +9,19 @@ const loginOrSignup = async (page) => {
   const signIn = new SignIn(page)
   const signUp = new SignUp(page)
 
-  await signIn.navigate()
+  await page.goto('http://localhost:5173/');
+
   try {
-    await signIn.fillAndSignIn({timeout:300})
+    await page.getByRole('button', {name: /Your feed/i}).waitFor({ timeout: 300 })
   } catch (error) {
-    await signUp.navigate()
-    await signUp.fillAndSignUp()
+    await signIn.navigate()
+
+    try {
+      await signIn.fillAndSignIn({timeout:300})
+    } catch (error) {
+      await signUp.navigate()
+      await signUp.fillAndSignUp()
+    }
   }
 }
 
