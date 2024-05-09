@@ -11,10 +11,11 @@ export class SignIn {
     async fillAndSignIn({
       email = ALICE.email,
       password = ALICE.password,
+      timeout = 10000
     } = {}) {
       await this.page.getByPlaceholder('Email').fill(email);
       await this.page.getByPlaceholder('Password').fill(password);
       await this.page.getByRole('button', { name: /Sign in/i }).click();
-      await this.page.waitForURL(/profile/i);
+      await this.page.waitForURL(/profile/i,{timeout});
     }
   }

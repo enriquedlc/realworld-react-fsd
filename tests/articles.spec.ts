@@ -2,13 +2,20 @@ import { test } from '@playwright/test';
 import {Article} from './Article'
 import { SignIn } from './pom/SignIn';
 import { CARBON_EMISSIONS } from './articles';
+import { SignUp } from './SignUp';
 
 const loginOrSignup = async (page) => {
 
   const signIn = new SignIn(page)
+  const signUp = new SignUp(page)
 
   await signIn.navigate()
-  await signIn.fillAndSignIn()
+  try {
+    await signIn.fillAndSignIn({timeout:300})
+  } catch (error) {
+    await signUp.navigate()
+    await signUp.fillAndSignUp()
+  }
 }
 
 test("write article", async ({ page }) => {
