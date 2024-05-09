@@ -7,6 +7,7 @@ export async function loginOrSignUp(page: Page) {
   const signIn = new SignIn(page);
 
   await page.goto('/');
+
   try {
     await page
       .getByRole('button', { name: 'Your Feed' })

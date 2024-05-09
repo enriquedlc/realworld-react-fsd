@@ -1,11 +1,16 @@
 import { test } from '@playwright/test';
-import { Article } from './Article';
+import { Article } from './pom/Article';
+import { loginOrSignUp } from './pom/utils';
+import { NewArticle } from './pom/NewArticle';
 
 test('write article', async ({ page }) => {
   const article = new Article(page);
+  const newArticle = new NewArticle(page);
 
-  await page.goto('/');
-  await page.getByRole('link', { name: /New Article/i }).click();
+  await loginOrSignUp(page);
+
+  await newArticle.navigate();
+  await newArticle.create();
 
   await article.expectToBeVisible();
 });

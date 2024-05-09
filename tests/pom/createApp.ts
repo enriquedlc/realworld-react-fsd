@@ -1,5 +1,5 @@
 import { Page, expect } from '@playwright/test';
-import {Article} from '../Article'
+import { Article } from './Article';
 
 export function createApp(page: Page) {
   const article = new Article(page);
